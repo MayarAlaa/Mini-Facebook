@@ -9,6 +9,7 @@ namespace Facebook.Models
     public class MyRole:IdentityRole
     {
         public string Description { get; set; }
+        public bool IsDeleted { get; set; }
 
         public MyRole():base()
         {

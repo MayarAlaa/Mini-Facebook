@@ -9,14 +9,16 @@ namespace Facebook.Models
     public class Likes
     {
         [ForeignKey("Id")]
-        public string UserID { get; set; }
-        public virtual MyUser User { get; set; }
+        public string UserId { get; set; }
+        public  MyUser MyUser { get; set; }
 
-        [ForeignKey("ID")]
-        public int PostID { get; set; }
+        [ForeignKey("PostId")]
+        public int PostId { get; set; }
 
-        public virtual Posts Post { get; set; }
+        public  Posts Post { get; set; }
         public bool IsLiked { get; set; }
         public DateTime Date { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
