@@ -1,0 +1,95 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+    <div class="card">
+        <div class="row" id="postuser">
+            <div class="col-sm-12">
+                <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                <a href="#" class="as"><b>User who posts this Post</b></a>
+            </div>
+        </div>
+  
+        <div class="card-body">
+            <p>
+                Flamingo, (order Phoenicopteriformes), any of six species of tall,
+                pink wading birds with thick downturned bills. Flamingos have slender legs, long,
+                graceful necks, large wings, and short tails. They range from about 90 to 150 cm (3 to 5 feet) tall.
+                <span id="dots">...</span>
+                <span id="more">
+                    Flamingos are highly gregarious birds. Flocks numbering in the hundreds may be seen in long,
+                    curving flight formations and in wading groups along the shore. On some of East Africa’s large
+                    lakes, more than a million lesser flamingos (Phoeniconaias minor) gather during the breeding season.
+                    In flight, flamingos present a striking and beautiful sight, with legs and neck stretched out
+                    straight, looking like white and rosy crosses with black arms. No less interesting is the flock
+                    at rest, with their long necks twisted or coiled upon the body in any conceivable position.
+                    Flamingos are often seen standing on one leg. Various reasons for this habit have been
+                    suggested, such as regulation of body temperature, conservation of energy, or merely to dry out the legs.
+                </span>
+            </p>
+
+            <button class="btn btn-default btns" onclick="seemore()" id="btn_more">Read more</button>
+
+        </div>
+        <img src="~/images/8bdcfeac73574779978c15f4a1e4e7b2.jpg" />
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="#" class="as" data-toggle="modal" data-target="#ModalLikes">3 Likes</a>
+                </div>
+                <div class="col-sm-6">
+                    <a data-toggle="collapse" href="#comments" class="as" role="button" aria-expanded="false" aria-controls="comments">Comments</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-default btns">Like</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-default btns" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments">Comment</button>
+                </div>
+            </div>
+            <br />
+            <div class="collapse" id="comments">
+                <form>
+                    <div class="input-group" id="mycomment">
+                        <textarea type="text" class="form-control" placeholder="Comment" aria-label="Search" aria-describedby="basic-addon2"></textarea>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-default btns" type="button" id="btn_comment">Go</button>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">user 1</a>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>comment comment comment comment comment comment </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">user 2</a>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>comment comment comment comment comment comment </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">user 3</a>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>comment comment comment comment comment comment </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

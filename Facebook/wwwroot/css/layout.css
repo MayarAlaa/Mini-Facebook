@@ -1,0 +1,26 @@
+#navbar {
+    background-color: #900c3f;
+}
+
+#add {
+    color: whitesmoke;
+    font-size: xx-large;
+    margin-left: 7%;
+}
+
+#btn_search {
+    background-color: #ffc300;
+    color: whitesmoke;
+}
+
+#srch {
+    width: 50%;
+}
+
+#navitems {
+    margin-left: 5%;
+}
+
+li {
+    margin-right: 1%;
+}
