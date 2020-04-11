@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace Facebook.Models
 {
-    public class Friends
+    public class UserFriends
     {
         [ForeignKey("Id")]
-        public string UserID { get; set; }
-        public virtual MyUser User { get; set; }
+        public string UserId { get; set; }
+        public  MyUser User { get; set; }
+
 
         [ForeignKey("Id")]
-        public string FriendID { get; set; }
-        public virtual MyUser MyUser { get; set; }
+        public string FriendId { get; set; }
+        public  MyUser Friend { get; set; }
 
         public bool IsApproved { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

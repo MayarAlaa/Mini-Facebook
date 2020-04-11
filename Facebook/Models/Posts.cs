@@ -10,13 +10,15 @@ namespace Facebook.Models
     public class Posts
     {
         [Key]
-        public int ID { get; set; }
+        public int PostId { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         [ForeignKey("Id")]
-        public string UserID { get; set; }
-        public virtual MyUser User { get; set; }
+        public string UserId { get; set; }
+        public  MyUser User { get; set; }
+
+        public  ICollection<Likes> Likes { get; set; }
     }
 }

@@ -10,19 +10,19 @@ namespace Facebook.Models
     public class Comments
     {
         [Key]
-        public int ID { get; set; }
+        public int CommentId { get; set; }
         public string Content { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime Date { get; set; }
 
         [ForeignKey("Id")]
-        public string UserID { get; set; }
+        public string UserId { get; set; }
 
-        public virtual MyUser User { get; set; }
+        public  MyUser User { get; set; }
 
-        [ForeignKey("ID")]
-        public string PostID { get; set; }
+        [ForeignKey("PostId")]
+        public int PostId { get; set; }
 
-        public virtual Posts Post { get; set; }
+        public  Posts Post { get; set; }
     }
 }
