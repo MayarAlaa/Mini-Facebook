@@ -1,0 +1,96 @@
+﻿@model Facebook.Models.MyUser
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Start_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+
+        <div class="card-header">
+            <h4>Sign Up</h4>
+        </div>
+        <div class="card-body">
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="FName" class="control-label">First Name</label>
+                    <input asp-for="FName" class="form-control" />
+                    <span asp-validation-for="FName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LName" class="control-label">Last Name</label>
+                    <input asp-for="LName" class="form-control" />
+                    <span asp-validation-for="LName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" for="email">Email address</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" id="email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PasswordHash" for="pwd">Password</label>
+                    <input asp-for="PasswordHash" type="password" class="form-control" placeholder="Enter password" id="pwd">
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PasswordHash" for="cpwd">Confirm Password</label>
+                    <input asp-for="PasswordHash" type="password" class="form-control" placeholder="Confirm password" id="cpwd">
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Gender" class="control-label">Gender</label><br />
+                    <div class="form-check-inline">
+                        <label asp-for="Gender" class="form-check-label" for="male">
+                            <input asp-for="Gender" type="radio" class="form-check-input" id="male" name="optradio" value="Male" checked>Male
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label asp-for="Gender" class="form-check-label" for="female">
+                            <input asp-for="Gender" type="radio" class="form-check-input" id="female" name="optradio" value="Female" checked>Female
+                        </label>
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <br />
+                        <label class="control-label">BirthDate</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label asp-for="BDay" class="control-label">Day</label>
+                            <input asp-for="BDay" class="form-control" type="number" />
+                            <span asp-validation-for="BDay" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label asp-for="BMonth" class="control-label">Month</label>
+                            <input asp-for="BMonth" class="form-control" type="number" />
+                            <span asp-validation-for="BMonth" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label asp-for="BYear" class="control-label">Year</label>
+                            <input asp-for="BYear" class="form-control" type="number" />
+                            <span asp-validation-for="BYear" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+</form>
+        </div>
+        <div class="card-footer">
+            <div class="form-group">
+                <input type="submit" value="Sing Up" class="btn btn-default btns" />
+            </div>
+        </div>
+    </div>
+</div>
+
+

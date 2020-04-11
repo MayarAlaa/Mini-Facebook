@@ -1,0 +1,44 @@
+﻿@model MyUser
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Start_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="card" id="signinCard">
+        <div class="card-header">
+            <h3>Sign In</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" placeholder="Enter email" id="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+                </div>
+                <div class="form-group">
+                    <select class="btn-group custom-select">
+                        <option selected>Choose Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"> Remember me
+                    </label>
+                </div>
+
+            </form>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-default btns">Sign In</button>
+        </div>
+    </div>
+
+</div>
+

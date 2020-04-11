@@ -1,0 +1,27 @@
+﻿#more {
+    display: none;
+}
+
+#btn_post {
+    width: 5em;
+    background-color: #ffc300;
+    color: whitesmoke;
+}
+
+#postuser {
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.btns {
+    background-color: #ffc300;
+    color: whitesmoke;
+}
+
+.as {
+    color: #c70039;
+}
+
+    .as:hover {
+        color: #900c3f;
+    }

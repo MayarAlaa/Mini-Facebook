@@ -31,15 +31,8 @@ namespace Facebook
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<MyUser, MyRole>(options =>
-             {
-                 //options.Password.RequireDigit = false;
-                 //options.Password.RequireLowercase = false;
-                 //options.Password.RequireUppercase = false;
-                 //options.Password.RequireNonAlphanumeric = false;
-
-             }).AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultUI();
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -71,7 +64,7 @@ namespace Facebook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=User}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

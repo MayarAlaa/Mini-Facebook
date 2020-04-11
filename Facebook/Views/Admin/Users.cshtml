@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+            </div>
+            <div class="col-sm-4">
+                <a class="btn btn-default" id="btn_search" style="background-color:#900c3f;" asp-area="" asp-controller="Admin" asp-action="CreateUser">Create New User</a>
+            </div>
+        </div>
+        <br /><br />
+        <div class="row">
+            <div class="col-sm-6">
+                <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                <a href="#" class="as">user 1</a>
+
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <select class="btn-group custom-select">
+                        <option selected>Choose Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-outline-default btns" type="button">Block/Unblock</button>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                <a href="#" class="as">user 2</a>
+
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <select class="btn-group custom-select">
+                        <option selected>Choose Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-outline-default btns" type="button">Block/Unblock</button>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                <a href="#" class="as">user 3</a>
+
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <select class="btn-group custom-select">
+                        <option selected>Choose Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-outline-default btns" type="button">Block/Unblock</button>
+            </div>
+        </div>
+        <hr />
+    </div>
+
+

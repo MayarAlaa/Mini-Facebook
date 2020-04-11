@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<div class="container">
+    @Html.Partial("CreatePost")
+
+    <br /><br />
+    @Html.Partial("Post")
+</div>
+
+<div class="modal fade" id="ModalLikes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Likes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">User 1</a>
+                    </li>
+                    <li>
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">User 2</a>
+                    </li>
+                    <li>
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">User 3</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btns" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

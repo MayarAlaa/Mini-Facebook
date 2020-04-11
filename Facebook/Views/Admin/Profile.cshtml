@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <section id="profimd">
+                <img src="~/images/fBE7wrcL_400x400.jpg" class="img-thumbnail" width="200" height="200" />
+                <br />
+                <div class="custom-file" id="btn_updateImage">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                           aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Upload Photo</label>
+                </div>
+                <button id="btn_updateImage" class="btn btn-default btns">Save</button>
+            </section>
+
+        <section id="info">
+            <h4>Name of the User</h4>
+            <br />
+            <label>Gender</label>
+            <br />
+            <label>BirthDate</label>
+            <br />
+            <p>Bio</p>
+        </section>
+        <button class="btn btn-default btns" data-toggle="modal" data-target="#ModalupdateInfo">Update Info</button>
+        <br /><br />
+        <h5>Friends</h5>
+        <ul>
+            <li>
+                <section>
+                    <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                    <a href="#" class="as">user 1</a>
+                    <br />
+                    <button class="btn btn-outline-default btns" type="button">Accept</button>
+                    <button class="btn btn-outline-default btns" type="button">Remove</button>
+                </section>
+                <hr />
+            </li>
+
+            <li>
+                <section>
+                    <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                    <a href="#" class="as">user 2</a>
+                    <br />
+                    <button class="btn btn-outline-default btns" type="button">Accept</button>
+                    <button class="btn btn-outline-default btns" type="button">Remove</button>
+                </section>
+                <hr />
+            </li>
+
+            <li>
+                <section>
+                    <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                    <a href="#" class="as">user 3</a>
+                    <br />
+                    <button class="btn btn-outline-default btns" type="button">Accept</button>
+                    <button class="btn btn-outline-default btns" type="button">Remove</button>
+                </section>
+                <hr />
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-9">
+        @Html.Partial("CreatePost")
+        <br /><br />
+        @Html.Partial("Post")
+    </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalupdateInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="usr">Name:</label>
+                        <input type="text" class="form-control" id="usr">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio:</label>
+                        <textarea class="form-control" id="bio"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="bd">Birthdate:</label>
+                        <input type="date" class="form-control" id="bd">
+                    </div>
+
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio">Male
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio">Female
+                        </label>
+                    </div>
+
+                </form>
+           
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btns" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default btns" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalLikes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Likes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">User 1</a>
+                    </li>
+                    <li>
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">User 2</a>
+                    </li>
+                    <li>
+                        <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />
+                        <a href="#" class="as">User 3</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btns" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
