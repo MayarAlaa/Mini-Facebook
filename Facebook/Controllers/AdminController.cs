@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Pages.Controllers
+namespace Facebook.Controllers
 {
-    public class UserController : Controller
+    public class AdminController : Controller
     {
         public IActionResult Index()
         {
@@ -16,7 +16,23 @@ namespace Pages.Controllers
         {
             return View();
         }
+        public IActionResult Users()
+        {
+            return View();
+        }
+        public IActionResult Roles()
+        {
+            return View();
+        }
+        public IActionResult CreateRole()
+        {
+            return View();
+        }
         public IActionResult OtherUsers()
+        {
+            return View();
+        }
+        public IActionResult CreateUser()
         {
             return View();
         }

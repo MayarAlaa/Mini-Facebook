@@ -1,23 +1,23 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Facebook_Layout.cshtml";
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
 <div class="container">
     <div class="row">
-    <div class="col-sm-3">
-        <section id="profimd">
-            <img src="~/images/fBE7wrcL_400x400.jpg" class="img-thumbnail" width="200" height="200" />
-            
-            <div class="custom-file" id="btn_updateImage">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                       aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Upload Photo</label>
-            </div>
-            <button id="btn_updateImage" class="btn btn-default btns">Save</button>
-        </section>
-        
+        <div class="col-sm-3">
+            <section id="profimd">
+                <img src="~/images/fBE7wrcL_400x400.jpg" class="img-thumbnail" width="200" height="200" />
+                <br />
+                <div class="custom-file" id="btn_updateImage">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                           aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Upload Photo</label>
+                </div>
+                <button id="btn_updateImage" class="btn btn-default btns">Save</button>
+            </section>
+
         <section id="info">
             <h4>Name of the User</h4>
             <br />

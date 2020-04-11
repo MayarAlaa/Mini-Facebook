@@ -1,0 +1,19 @@
+﻿body {
+    background-color:#900c3f;
+}
+#cont {
+    margin-top: 20%;
+}
+#signinCard{
+    margin-top:6em;
+}
+.btt {
+    width: 100%;
+    font-size: x-large;
+    background-color: #ffc300;
+    color: whitesmoke;
+}
+.btns{
+    background-color: #ffc300;
+    color: whitesmoke;
+}
