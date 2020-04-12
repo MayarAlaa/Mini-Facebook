@@ -3,6 +3,7 @@
 }
 #cont {
     margin-top: 20%;
+    color: whitesmoke;
 }
 #signinCard{
     margin-top:6em;
@@ -16,4 +17,19 @@
 .btns{
     background-color: #ffc300;
     color: whitesmoke;
+}
+.as {
+    color: #c70039;
+}
+.as:hover {
+        color: #900c3f;
+}
+#pp{
+    color:whitesmoke;
+    margin-top:6em;
+    margin-left:40%;
+}
+.aa{
+    width:100%;
+    margin-left:40%;
 }

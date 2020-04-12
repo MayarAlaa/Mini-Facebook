@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,6 +31,7 @@ namespace Facebook.Models
 
         public bool IsDeleted { get; set; }
 
+        
         public  ICollection<Likes> Likes { get; set; }
 
         public  ICollection<UserFriends> Users { get; set; }
@@ -44,5 +46,6 @@ namespace Facebook.Models
         {
 
         }
+        
     }
 }
