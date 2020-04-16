@@ -47,6 +47,15 @@ namespace Facebook.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [MinLength(3)]
+            [Display(Name = "First Name")]
+            public string FName { get; set; }
+
+            [Required]
+            [MinLength(3)]
+            [Display(Name = "Last Name")]
+            public string LName { get; set; }
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -61,6 +70,25 @@ namespace Facebook.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public char Gender { get; set; }
+
+            [Required]
+            [Display(Name = "Day")]
+            [Range(1, 31)]
+            public int BDay { get; set; }
+
+            [Required]
+            [Range(1, 12)]
+            [Display(Name = "Month")]
+            public int BMonth { get; set; }
+
+            [Required]
+            [Range(1950, 2005)]
+            [Display(Name = "Year")]
+            public int BYear { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -71,14 +99,20 @@ namespace Facebook.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/User/Index");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new MyUser { UserName = Input.Email, Email = Input.Email };
+                var user = new MyUser {FName=Input.FName,LName=Input.LName,
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    Gender=Input.Gender,
+                    BDay=Input.BDay,BMonth=Input.BMonth,BYear=Input.BYear
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var usr= await _userManager.FindByEmailAsync(Input.Email);
                     _logger.LogInformation("User created a new account with password.");
 
                     #region Email Confirmation
@@ -101,8 +135,7 @@ namespace Facebook.Areas.Identity.Pages.Account
                     //{ 
                     #endregion
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                  //  }
+                    return RedirectToAction("Index", "User", user);
                 }
                 foreach (var error in result.Errors)
                 {
