@@ -112,6 +112,7 @@ namespace Facebook.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var usr= await _userManager.FindByEmailAsync(Input.Email);
                     _logger.LogInformation("User created a new account with password.");
 
                     #region Email Confirmation
@@ -134,8 +135,7 @@ namespace Facebook.Areas.Identity.Pages.Account
                     //{ 
                     #endregion
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                  //  }
+                    return RedirectToAction("Index", "User", user);
                 }
                 foreach (var error in result.Errors)
                 {
