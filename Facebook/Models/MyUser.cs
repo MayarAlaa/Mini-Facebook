@@ -34,6 +34,7 @@ namespace Facebook.Models
 
         public  ICollection<UserFriends> Users { get; set; }
         public  ICollection<UserFriends> Friends { get; set; }
+        public  ICollection<Posts> Posts { get; set; }
 
         public MyUser():base()
         {

@@ -84,7 +84,11 @@ namespace Facebook.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    //Mayar Testing Purposes remove before commit
+                    // return RedirectToAction("Profile","User");
                     return LocalRedirect(returnUrl);
+                   
                 }
                 if (result.RequiresTwoFactor)
                 {

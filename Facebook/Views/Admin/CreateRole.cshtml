@@ -1,4 +1,4 @@
-﻿@model Facebook.Models.MyRole
+﻿@model Facebook.ViewModels.RoleViewModel
 
 
     <div class="card">
@@ -6,7 +6,7 @@
             <div class="card-header">
                 <h4>Create Role</h4>
             </div>
-            <form>
+            <form asp-action="CreateRole">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="card-body">
                     <div class="form-group">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-default btns" />
+                        <input type="submit" value="CreateRole" class="btn btn-default btns" />
                     </div>
                 </div>
             </form>

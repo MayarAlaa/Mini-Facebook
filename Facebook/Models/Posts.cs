@@ -20,5 +20,6 @@ namespace Facebook.Models
         public  MyUser User { get; set; }
 
         public  ICollection<Likes> Likes { get; set; }
+        public  ICollection<Comments> Comments { get; set; }
     }
 }
