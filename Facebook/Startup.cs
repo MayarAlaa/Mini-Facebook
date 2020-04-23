@@ -34,12 +34,18 @@ namespace Facebook
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+
             /*services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();*/
 
             services.AddIdentity<MyUser, MyRole>(
             ).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
-
+          
+             services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Home/Index";
+            });
+          
             services.AddMvc();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -72,6 +78,7 @@ namespace Facebook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
+
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
