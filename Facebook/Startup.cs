@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Facebook.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 namespace Facebook
 {
@@ -31,29 +33,23 @@ namespace Facebook
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            
 
-            services.AddIdentity<MyUser, MyRole>(options =>
-            {
-               
-                //options.Password.RequireDigit = false;
-                //options.Password.RequireLowercase = false;
-                //options.Password.RequireUppercase = false;
-                //options.Password.RequireNonAlphanumeric = false;
+            /*services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();*/
 
-            }).AddEntityFrameworkStores<ApplicationDbContext>()
-              .AddDefaultTokenProviders();
-
-            services.ConfigureApplicationCookie(options =>
+            services.AddIdentity<MyUser, MyRole>(
+            ).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
+          
+             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = "/Home/Index";
             });
-
+          
+            services.AddMvc();
             services.AddControllersWithViews();
             services.AddRazorPages();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,8 +78,7 @@ namespace Facebook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    //Mayar Testing Purposes remove before commit
-                    //pattern: "{controller=User}/{action=Index}/{id?}");
+
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
