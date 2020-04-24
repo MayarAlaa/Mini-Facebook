@@ -33,6 +33,35 @@ namespace Facebook.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
+            [MinLength(3)]
+            [Display(Name = "First Name")]
+            public string FName { get; set; }
+
+            [Required]
+            [MinLength(3)]
+            [Display(Name = "Last Name")]
+            public string LName { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public char Gender { get; set; }
+
+            [Required]
+            [Display(Name = "Day")]
+            [Range(1, 31)]
+            public int BDay { get; set; }
+
+            [Required]
+            [Range(1, 12)]
+            [Display(Name = "Month")]
+            public int BMonth { get; set; }
+
+            [Required]
+            [Range(1950, 2005)]
+            [Display(Name = "Year")]
+            public int BYear { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -47,6 +76,12 @@ namespace Facebook.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FName = user.FName,
+                LName = user.LName,
+                Gender = user.Gender,
+                BDay = user.BDay,
+                BMonth = user.BMonth,
+                BYear = user.BYear,
                 PhoneNumber = phoneNumber
             };
         }
@@ -87,6 +122,39 @@ namespace Facebook.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+
+            if (Input.FName != user.FName)
+            {
+                user.FName = Input.FName;
+            }
+
+            if (Input.LName != user.LName)
+            {
+                user.LName = Input.LName;
+            }
+
+            if (Input.Gender != user.Gender)
+            {
+                user.Gender = Input.Gender;
+            }
+
+            if (Input.BDay != user.BDay)
+            {
+                user.BDay = Input.BDay;
+            }
+
+            if (Input.BMonth != user.BMonth)
+            {
+                user.BMonth = Input.BMonth;
+            }
+
+            if (Input.BYear != user.BYear)
+            {
+                user.BYear = Input.BYear;
+            }
+            await _userManager.UpdateAsync(user);
+
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
