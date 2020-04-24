@@ -28,13 +28,17 @@ namespace Facebook.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<MyUser> userManager,
             SignInManager<MyUser> signInManager,
+
             ILogger<RegisterModel> logger)
             //IEmailSender emailSender)
+
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-           // _emailSender = emailSender;
+
+          //  _emailSender = emailSender;
+
         }
 
         [BindProperty]

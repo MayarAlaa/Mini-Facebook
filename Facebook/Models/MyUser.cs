@@ -19,6 +19,9 @@ namespace Facebook.Models
         public string LName { get; set; }
         public char Gender { get; set; }
         public string Bio { get; set; }
+
+      
+
         public bool IsBlocked { get; set; }
 
         [Range(1,31)]

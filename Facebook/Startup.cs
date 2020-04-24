@@ -13,7 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Facebook.Models;
+
+using Microsoft.Extensions.Options;
+
 using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 
 namespace Facebook
@@ -34,6 +38,7 @@ namespace Facebook
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
 
 
 

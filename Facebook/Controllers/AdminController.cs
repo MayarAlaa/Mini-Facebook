@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using System.Text.Json;
+
+
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +21,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
+
 namespace Facebook.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -21,6 +29,7 @@ namespace Facebook.Controllers
     {
         private readonly UserManager<MyUser> _userManager;
         private readonly RoleManager<MyRole> _roleManager;
+
         private readonly SignInManager<MyUser> _signInManager;
 
 
@@ -32,16 +41,23 @@ namespace Facebook.Controllers
             _signInManager = signInManager;
         }
         public IActionResult Index()
+
         {
-            return View();
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
-        public IActionResult Profile()
+  
+        public IActionResult Users(string id )
         {
-            return View();
-        }
-        public IActionResult Users()
-        {
-            return View();
+
+            List<MyUser> users = _userManager.Users.ToList();
+            List<MyRole> roles = _roleManager.Roles.ToList();
+     
+
+            
+            ViewData["Id"] = new SelectList(_roleManager.Roles, "Id", "Name");
+
+            return View(users);
         }
 
 
@@ -172,14 +188,91 @@ namespace Facebook.Controllers
         {
             return View();
         }
-        public IActionResult CreateUser()
+
+        [HttpGet]
+        public IActionResult CreateUser ()
         {
+            ViewData["Id"] = new SelectList(_roleManager.Roles,"Name");
+
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUserAsync( MyUser user, string role)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                
+               
+                MyUser Newuser = new MyUser()
+                {
+                  
+                    Id=user.Id,
+                    FName = user.FName,
+                    LName = user.LName,
+                    Email = user.Email,
+                    Gender = user.Gender,
+                    BDay = user.BDay,
+                    BMonth = user.BMonth,
+                    BYear = user.BYear,
+                    IsBlocked = false,
+                    IsDeleted = false,
+                    EmailConfirmed = false,
+                    PhoneNumber = "",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    AccessFailedCount = 0,
+                    LockoutEnabled = true,
+                    UserName = user.FName,
+                    NormalizedUserName = user.FName.ToUpper(),
+                    NormalizedEmail = user.Email.ToUpper(),
+                    // PasswordHash = user.PasswordHash
+
+
+
+
+
+
+                };
+                var r = await _userManager.CreateAsync(Newuser, user.PasswordHash);
+                if (r.Succeeded)
+                    await _userManager.AddToRoleAsync(Newuser, role);
+                ViewData["Id"] = new SelectList(_roleManager.Roles, "Name");
+
+                return RedirectToAction("users");
+            }
+            else
+            {
+                //ViewData["Id"] = new SelectList(_roleManager.Roles, "Id", "Name");
+                ViewData["Id"] = new SelectList(_roleManager.Roles, "Name");
+
+
+                return View();
+            }
+        }
+
+        public  IActionResult DataSearching(string searchname) 
+        {
+        
+
+            List<MyUser> users = _userManager.Users.Where(p => p.FName.Contains(searchname)).ToList();
+            //   List<MyRole> roles= _roleManager.Roles.ToList();
+            //   ViewBag.role = roles;
+            // ViewData["Id"] = new SelectList(_roleManager.Roles, "Id", "Name");
+            ViewData["Id"] = new SelectList(_roleManager.Roles, "Name");
+
+            return PartialView(users);
+         }
+
+       
+
 
 
         [HttpGet]
         public IActionResult ChangePassword()
+
         {
             var adminID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var admin = _userManager.Users.FirstOrDefault(u => u.Id == adminID && u.IsDeleted == false && u.IsBlocked == false);
@@ -217,7 +310,16 @@ namespace Facebook.Controllers
            // return RedirectToAction("index"); //add user id
             return RedirectToAction("Profile", "UserProfile", new { Id = adminID });
         }
-        public IActionResult Search()
+        public IActionResult Search( string id ,string searchname)
+        {
+            List<MyUser> users = _userManager.Users.Where(w=>w.FName.Contains(searchname)).ToList();
+            return View(users);
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Profile()
         {
             return View();
         }
@@ -228,6 +330,37 @@ namespace Facebook.Controllers
         public IActionResult Post()
         {
             return PartialView("Post");
+        }
+
+        public async Task<IActionResult> blockAsync(string id) 
+        {
+            if (id != null)
+            {
+                MyUser user = _userManager.Users.Single(u => u.Id == id);
+                bool status = user.IsBlocked;
+                user.IsBlocked = !user.IsBlocked;
+                await _userManager.UpdateAsync(user);
+                return RedirectToAction("users");
+            }
+            return RedirectToAction("users");
+
+        }
+      [HttpPost]
+        public async Task ChangeRole(string usrid, string role)
+        {
+
+
+            MyUser user =  _userManager.Users.SingleOrDefault(s=>s.Id==usrid);
+            bool ex = await _userManager.IsInRoleAsync(user, role);
+            if (ex == false)
+            {
+                var r = await _userManager.AddToRoleAsync(user, role);
+                bool re = r.Succeeded;
+
+            }
+
+
+
         }
     }
 }
