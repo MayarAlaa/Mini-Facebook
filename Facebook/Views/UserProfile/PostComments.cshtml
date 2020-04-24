@@ -1,0 +1,76 @@
+﻿@model Posts
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <title>Facebook</title>
+    <style>
+        body {
+            background-color: #900c3f;
+        }
+
+        #Likes {
+            background-color: whitesmoke;
+            color: #900c3f;
+            position: fixed;
+            top: 25%;
+            left: 25%;
+            width: 800px;
+        }
+
+        #Back {
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <div id="Likes" class="row">
+        <br />
+        <h3>Comments on this Post : </h3>
+        <br />
+        @foreach (var U in ViewBag.PostComments)
+        {
+    <div class="col-sm-12">
+
+        @if(U.Image!=null){
+            var base64 = Convert.ToBase64String(@U.Image);
+            var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+            <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+
+        }
+
+        <a asp-controller="UserProfile" asp-action="AnonFriendORNot" asp-route-Id=@ViewData["USID"] asp-route-IDD="@U.Id" class="as">@U.FName @U.LName</a>
+    </div>
+            @foreach (var C in ViewBag.Cont)
+            {
+                <ul>
+                @if (C.UserId == U.Id)
+                {
+                 
+                    <li class="col-sm-12">
+                   
+                        <p>@C.Content</p>
+                    </li>
+                    
+                }
+                </ul>
+            }
+        }
+
+
+        <a id="Back" class="btn btn-primary btns" asp-controller="UserProfile" asp-action="AnonFriendORNot" asp-route-Id=@ViewData["USID"] asp-route-IDD=@Model.UserId>Back</a>
+    </div>
+</body>
+</html>

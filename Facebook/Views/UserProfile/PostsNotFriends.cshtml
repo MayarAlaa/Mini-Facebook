@@ -1,0 +1,72 @@
+﻿
+@foreach (var us in (List<Posts>)ViewBag.MyPosts)
+{
+    <div class="card">
+        <div class="row" id="postuser">
+            <div class="col-sm-11">
+                @if (us.User.Image != null)
+                {
+                    var base64 = Convert.ToBase64String(us.User.Image);
+                    var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+
+                }
+
+                <a href="#"><b>@us.User.FName  @us.User.LName</b></a>
+            </div>
+
+        </div>
+
+        <div class="card-body" id="myPost">
+            <p>
+                @us.Content
+            </p>
+
+        </div>
+        @*<img src="~/images/8bdcfeac73574779978c15f4a1e4e7b2.jpg" />*@
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="as" asp-controller="UserProfile" asp-action="PostLikes" asp-route-PId="@us.PostId" asp-route-myId=@ViewData["MyID"]>@us.LikesCount Likes</a>
+            </div>
+            <div class="col-sm-6">
+                <a data-toggle="collapse" href="#comments" class="as" role="button" aria-expanded="false" aria-controls="comments">@us.CommentCount Comments</a>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <a asp-route-PId="@us.PostId" asp-route-UId="@Model.Id" asp-route-LikedID=@ViewData["myID"] asp-action="LikePost2" asp-controller="UserProfile" class="btn btn-default btns">Like</a>
+            </div>
+            <div class="col-sm-6">
+                <a asp-controller="UserProfile" asp-route-PId="@us.PostId" asp-route-myId=@ViewData["MyID"] class="btn btn-default btns" asp-action="PostComments">Show Comments</a>
+            </div>
+        </div>
+        <br />
+        @using (Html.BeginForm("CommentPost2", "UserProfile", FormMethod.Post))
+        {
+            <div>
+            <input hidden name="PId" value="@us.PostId" />
+            <input hidden name="UId" value="@Model.Id" />
+            <input hidden name="CID" value="@ViewData["myID"]" />
+            <div class="input-group" id="mycomment">
+                <textarea name="Cont" type="text" class="form-control" placeholder="Comment" aria-label="Search" aria-describedby="basic-addon2"></textarea>
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-outline-default btns" id="btn_comment" value="Go">
+                </div>
+            </div>
+                </div>
+        }
+        </div>
+      
+</div>
+        
+           
+
+
+
+    <br />
+    <br />
+
+    <br />
+}

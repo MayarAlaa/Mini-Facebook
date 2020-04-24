@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
+using Facebook.Models;
+using Facebook.Data;
 namespace Pages.Controllers
 {
     public class UserController : Controller
@@ -12,10 +13,7 @@ namespace Pages.Controllers
         {
             return View();
         }
-        public IActionResult Profile()
-        {
-            return View();
-        }
+   
         public IActionResult OtherUsers()
         {
             return View();
