@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace Facebook.Areas.Identity.Pages.Account
 {
@@ -21,6 +22,7 @@ namespace Facebook.Areas.Identity.Pages.Account
         private readonly UserManager<MyUser> _userManager;
         private readonly SignInManager<MyUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly RoleManager<MyRole> _role;
 
         public LoginModel(SignInManager<MyUser> signInManager, 
             ILogger<LoginModel> logger,
@@ -62,7 +64,7 @@ namespace Facebook.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/Home/Index");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -74,17 +76,29 @@ namespace Facebook.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/User/Index");
 
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var user = await _userManager.FindByEmailAsync(Input.Email);
+                var roles = await _userManager.GetRolesAsync(user);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+
+
+                    if (user.IsBlocked == true)
+                        return RedirectToPage("./Lockout");
+
+                    if (roles.Contains("Admin"))
+                    return RedirectToAction("Index", "Admin", user);
+
+                    return RedirectToAction("Index","User",user);
+
                 }
                 if (result.RequiresTwoFactor)
                 {

@@ -1,0 +1,43 @@
+﻿@model MyUser
+
+    <section id="profimd">
+        @if (@Model.Image != null)
+        {
+            var base64 = Convert.ToBase64String(@Model.Image);
+            var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+            <img src=@imgSrc class="img-thumbnail" max-width="200" max-height="200" />
+
+        }
+
+        <form asp-controller="UserProfile" asp-action="UpdateImg" method="Post" enctype="multipart/form-data">
+
+            <div class="custom-file" id="btn_updateImage">
+                <input hidden value="@Model.Id" asp-for="Id" />
+                <input type="file" class="custom-file-input" id="files" asp-for="Image"
+                       aria-describedby="inputGroupFileAddon01" accept="img/*">
+                <label class="custom-file-label" for="inputGroupFile01">Upload Photo</label>
+            </div>
+            <input type="submit" id="btn_updateImage" class="btn btn-default btns" value="Save">
+        </form>
+    </section>
+
+
+<section id="info">
+    <h4>@Model.FName @Model.LName </h4>
+    <br />
+    <label id="G"></label>
+    <br />
+    <label>BirthDate : @Model.BDay/@Model.BMonth/@Model.BYear</label>
+    <br />
+    <p>Bio :  @Model.Bio</p>
+</section>
+<script>
+    var gend = '@Model.Gender';
+
+
+    if(gend=='f' || gend =='F')
+        document.getElementById('G').innerHTML = "Gender : Female";
+    else if (gend=='m' || gend == 'M')
+       document.getElementById('G').innerHTML = "Gender : Male";
+
+</script>

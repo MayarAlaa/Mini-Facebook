@@ -61,8 +61,6 @@ namespace Facebook.Data
             #endregion
 
 
-
-
             #region MyUser-Likes-Posts
             builder.Entity<Likes>().HasKey(up => new { up.UserId, up.PostId });
 
