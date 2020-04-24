@@ -7,7 +7,8 @@ using Facebook.Models;
 using Facebook.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using Facebook.Models;
+using Facebook.Data;
 namespace Pages.Controllers
 {
     public class UserController : Controller
@@ -28,10 +29,7 @@ namespace Pages.Controllers
         {
             return View();
         }
-        public IActionResult Profile()
-        {
-            return View();
-        }
+   
         public IActionResult OtherUsers()
         {
             return View();

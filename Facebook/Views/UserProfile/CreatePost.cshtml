@@ -1,0 +1,38 @@
+﻿@model MyUser
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Create Post</h5>
+        </div>
+        @using (Html.BeginForm("AddPost", "UserProfile", FormMethod.Post))
+        {
+            <div class="card-body">
+                <div class="row">
+
+
+                    <div class="col-sm-12 form-group">
+
+                        <textarea class="form-control" type="text" placeholder="What's on your mind?" name="Cont"></textarea>
+                    </div>
+                </div>
+                <img />
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-4">
+
+                    </div>
+                    <div class="col-sm-2">
+
+                        <input hidden asp-for="@Model.Id" name="Id"/>
+                        <button type="submit" class="btn btn-default btns" id="btn_post">Post</button>
+
+                    </div>
+                    
+                </div>
+                
+            </div>
+        }
+        </div>
+

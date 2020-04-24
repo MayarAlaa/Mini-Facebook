@@ -1,0 +1,61 @@
+﻿@model Posts
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+
+    <title>FaceBook</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
+    <link rel="stylesheet" href="~/css/post.css" />
+    <link rel="stylesheet" href="~/css/profile.css" />
+    
+</head>
+<style>
+    #Ed {
+        position: fixed;
+        top: 25%;
+        left: 25%;
+        width:800px;
+    }
+</style>
+@using (Html.BeginForm("EditPost", "UserProfile", FormMethod.Post))
+{
+    <div class="card" id="Ed">
+        <div class="card-header">
+            <h5>Edit Your Post</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+
+                <div class="col-sm-12 form-group">
+                    <input hidden value="@Model.PostId" name="Id"/>
+                    <textarea class="form-control" type="text" name="Cont">@Model.Content</textarea>
+                </div>
+            </div>
+            <img />
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-4">
+
+                </div>
+                <div class="col-sm-2">
+                    <section class="d-inline">
+                        <input type="submit" class="btn btn-default btns" id="btn_post" value="Save" />
+                        <br />
+                        <a class="btn btn-default btns" asp-controller="UserProfile" asp-action="Profile" asp-route-Id="@Model.UserId" id="btn_post">Back</a>
+                    </section>
+                </div>
+
+            </div>
+
+        </div>
+        
+    </div>
+}

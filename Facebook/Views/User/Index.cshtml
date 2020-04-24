@@ -5,10 +5,12 @@
 }
 
 <div class="container">
-    @Html.Partial("CreatePost")
+    <partial name="CreatePost" />
+    @*@Html.Partial("CreatePost")*@
 
     <br /><br />
-    @Html.Partial("Post")
+    @*@Html.Partial("Post")*@
+    <partial name="Post" />
 </div>
 
 <div class="modal fade" id="ModalLikes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

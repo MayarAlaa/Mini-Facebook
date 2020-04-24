@@ -1,4 +1,4 @@
-﻿
+﻿@model MyUser 
 @{
     Layout = null;
 }
@@ -33,7 +33,9 @@
                   <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse" id="navitems">
                       <ul class="navbar-nav flex-grow-1">
                           <li class="nav-item">
-                              <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
+
+                              <a class="nav-link text-white" asp-area="" asp-controller="UserProfile" asp-action="Profile" asp-route-Id="@Model.Id">Profile</a>
+
                           </li>
                           <li class="nav-item">
                               <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">Home</a>

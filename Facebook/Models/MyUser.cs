@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +19,6 @@ namespace Facebook.Models
         public string LName { get; set; }
         public char Gender { get; set; }
         public string Bio { get; set; }
-        public string Photo { get; set; }
         public bool IsBlocked { get; set; }
 
         [Range(1,31)]
@@ -36,6 +37,8 @@ namespace Facebook.Models
 
         public  ICollection<UserFriends> Users { get; set; }
         public  ICollection<UserFriends> Friends { get; set; }
+        public ICollection<Comments> Comments { get; set; }
+        public byte[] Image { get; set; }
         public  ICollection<Posts> Posts { get; set; }
 
         public MyUser():base()
