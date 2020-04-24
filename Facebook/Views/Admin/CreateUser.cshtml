@@ -11,7 +11,8 @@
                 <h4>Create User</h4>
             </div>
             <div class="card-body">
-                <form>
+                @using (Html.BeginForm("CreateUser", "admin", FormMethod.Post))
+                {
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -40,64 +41,63 @@
                     <div class="form-group">
                         <label asp-for="Gender" class="control-label">Gender</label><br />
                         <div class="form-check-inline">
-                            <label asp-for="Gender" class="form-check-label" for="male">
-                                <input asp-for="Gender" type="radio" class="form-check-input" id="male" name="optradio" value="Male" checked>Male
-                            </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label asp-for="Gender" class="form-check-label" for="female">
-                                <input asp-for="Gender" type="radio" class="form-check-input" id="female" name="optradio" value="Female" checked>Female
-                            </label>
+                              <select asp-for="Gender">
+                                  <option asp-for="Gender">m</option>
+                                  <option asp-for="Gender">f</option>
+                              </select>
+                           
                         </div>
                         <span asp-validation-for="Gender" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <select class="btn-group custom-select">
-                            <option selected>Choose Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                        </select>
+                        @*<select class="btn-group custom-select">
+            <option selected>Choose Role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select>*@
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <br />
-                                <label class="control-label">BirthDate</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label asp-for="BDay" class="control-label">Day</label>
-                                    <input asp-for="BDay" class="form-control" type="number" />
-                                    <span asp-validation-for="BDay" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label asp-for="BMonth" class="control-label">Month</label>
-                                    <input asp-for="BMonth" class="form-control" type="number" />
-                                    <span asp-validation-for="BMonth" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label asp-for="BYear" class="control-label">Year</label>
-                                    <input asp-for="BYear" class="form-control" type="number" />
-                                    <span asp-validation-for="BYear" class="text-danger"></span>
-                                </div>
+                        <select asp-items="(SelectList)@ViewData["Id"]" name="role"  class="form-group"></select>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <br />
+                            <label class="control-label">BirthDate</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="BDay" class="control-label">Day</label>
+                                <input asp-for="BDay" class="form-control" type="number" />
+                                <span asp-validation-for="BDay" class="text-danger"></span>
                             </div>
                         </div>
-
-
-                        <div class="form-group form-check">
-                            <input asp-for="IsBlocked" class="form-check-input" type="checkbox" id="chkBlock" value="Blocked">
-                            <label asp-for="IsBlocked" class="form-check-label" for="chkBlock">Blocked</label>
-                            <span asp-validation-for="IsBlocked" class="text-danger"></span>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="BMonth" class="control-label">Month</label>
+                                <input asp-for="BMonth" class="form-control" type="number" />
+                                <span asp-validation-for="BMonth" class="text-danger"></span>
+                            </div>
                         </div>
-</form>
-            </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="BYear" class="control-label">Year</label>
+                                <input asp-for="BYear" class="form-control" type="number" />
+                                <span asp-validation-for="BYear" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                
             <div class="card-footer">
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default btns" />
+                    <input type="submit" value="Create" class="btn btn-default btns " />
                 </div>
             </div>
-        </div>
+        
+                }
     </div>
+        </div>    </div>

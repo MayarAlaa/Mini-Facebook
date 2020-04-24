@@ -1,4 +1,4 @@
-﻿
+﻿@model Facebook.Models.MyUser
 @{
     Layout = null;
 }
@@ -7,6 +7,7 @@
 
 <html>
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FaceBook</title>
@@ -14,6 +15,8 @@
     <link rel="stylesheet" href="~/css/layout.css" />
     <link rel="stylesheet" href="~/css/post.css" />
     <link rel="stylesheet" href="~/css/profile.css" />
+    <style>
+    </style>
 </head>
 <body>
     <header>
@@ -22,12 +25,27 @@
 
                 <span class="navbar-brand mb-0 h1" id="add">Facebook</span>
 
-                <div class="input-group" id="srch">
-                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <a class="btn btn-default" id="btn_search" asp-area="" asp-controller="Admin" asp-action="Search">Search</a>
+                @*@Html.TextBox("searchname")*@
+
+                <input type="text" class="form-control   input-group" id="userName" name="searchname" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+
+                <input value="search " class="btn btn-default input-group-append " type="submit" id="btn_search" asp-area="">
+
+
+
+                @* @using (Html.BeginForm("Search", "admin", FormMethod.Get))*@
+                @*{
+                    <div class="input-group" id="srch">
+                        <input class="col-4" type="text" name="searchname" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+
+
+                        <div class="input-group-append">
+
+                            <input class="btn btn-default" value="Search" type="submit" />
+                        </div>
                     </div>
-                </div>
+
+                        }*@
 
 
                 <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse" id="navitems">
@@ -39,7 +57,7 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Users">Users</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Users" asp-route-id="@Model.Id">Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Roles">Roles</a>
@@ -67,5 +85,26 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/js/post.js"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#btn_search").click(function () {
+                console.log("here");
+
+
+                var id = @Model.Id;
+                var cust =  $('#userName').val()
+                var url = '@Html.Raw(Url.Action("Search", "Admin", new {id=Model.Id, searchname = "cust" }))'
+                window.location = url.replace("cust", cust);
+
+
+
+            });
+
+        });
+
+    </script>
 </body>
 </html>
