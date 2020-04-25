@@ -40,12 +40,12 @@ namespace Facebook.Controllers
             _roleManager = roleManager;
             _signInManager = signInManager;
         }
-        public IActionResult Index()
+        //public IActionResult Index()
 
-        {
-            _userManager = userManager;
-            _roleManager = roleManager;
-        }
+        //{
+        //    _userManager = userManager;
+        //    _roleManager = roleManager;
+        //}
   
         public IActionResult Users(string id )
         {

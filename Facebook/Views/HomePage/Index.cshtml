@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Posts> 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Facebook_Layout.cshtml";
+}
+
+<div class="container">
+    @{Html.RenderPartial("CreatePost");}
+
+    <br /><br />
+    @{Html.RenderPartial("Post", Model);}
+</div>
+
+
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Likes>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="col-sm-6">
+    @*asp-route-id="@Model.ToList()[0].PostId"       onclick="showlike(@Model.ToList()[0].PostId)"    @Model.ToList().Count(p => p.IsLiked == true)*@
+    <a asp-action="Getlike" asp-controller="HomePage" asp-route-id="@Model.ToList()[0].PostId" onclick="showlike(@Model.ToList()[0].PostId)" class="as" data-toggle="modal" data-target="#ModalLikes">@Model.ToList().Count(p => p.IsLiked == true)</a>
+</div>
+<div class="modal fade" id="ModalLikes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Likes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <li>
+                            @*<img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />*@
+                            @{
+                                   var base64 = Convert.ToBase64String(item.MyUser.Image);
+                                   var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                  <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+
+                            @*asp-route-id=@ViewData["ID"] asp-route-idd=@item.User.Id*@
+                            @*asp-action="AnonFriendORNot" asp-controller="HomePage"*@
+                            <a class="as" asp-action="AnonFriendORNot" asp-controller="UserProfile" asp-route-id=@ViewData["ID"] asp-route-idd=@item.UserId>@item.MyUser.FName @item.MyUser.LName</a>
+                        </li>
+                    }
+                    >
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btns" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

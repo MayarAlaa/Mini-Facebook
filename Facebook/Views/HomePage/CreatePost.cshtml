@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Posts> 
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="card">
+    <div class="card-header">
+        <h5>Create Post</h5>
+    </div>
+    <form method="post" asp-action="createpost" asp-controller="HomePage">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <textarea class="form-control" type="text" placeholder="What's on your mind?" name="Content"></textarea>
+                <input type="text"  hidden name="UserId" value="a"/>
+                </div>
+            </div>
+            <img />
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-4">
+                    <div class="custom-file" id="btn_updateImage">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                               aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Upload Photo</label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    @*asp-route-id="@Model.UserId"       asp-route-id="a"*@
+                    <button type="submit" asp-route-id="@ViewData["ID"]" class="btn btn-default btns" id="btn_post" >Post</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
