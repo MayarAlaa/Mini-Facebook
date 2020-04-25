@@ -95,10 +95,9 @@ namespace Facebook.Areas.Identity.Pages.Account
                         return RedirectToPage("./Lockout");
 
                     if (roles.Contains("Admin"))
-                    return RedirectToAction("Index", "Admin", user);
+                    return RedirectToAction("Index", "Admin", user.Id,user.FName);
 
-                    return RedirectToAction("Index","User",user);
-
+                    return RedirectToAction("Index","User",user.Id,user.FName);
                 }
                 if (result.RequiresTwoFactor)
                 {

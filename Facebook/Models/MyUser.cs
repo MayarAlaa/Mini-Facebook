@@ -20,7 +20,7 @@ namespace Facebook.Models
         public char Gender { get; set; }
         public string Bio { get; set; }
 
-      
+        public byte[] Image { get; set; }
 
         public bool IsBlocked { get; set; }
 
