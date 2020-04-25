@@ -1,0 +1,154 @@
+﻿@model IEnumerable<Posts> 
+
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+@foreach (var item in Model)
+{
+    <div class="card">
+        <div class="row" id="postuser">
+            <div class="col-sm-11">
+                @{
+            var base64 = Convert.ToBase64String(item.User.Image);
+            var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+        }
+        <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+                @*<img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />*@
+                @*asp-route-id=@ViewData["ID"] asp-route-idd=@item.User.Id*@
+                @*asp-action="AnonFriendORNot" asp-controller="UserProfile"*@
+                <a class="as" asp-action="AnonFriendORNot" asp-controller="UserProfile" asp-route-id=@ViewData["ID"] asp-route-idd=@item.User.Id><b>@item.User.FName @item.User.LName</b></a>
+            </div>
+            <div class="col-sm-1">
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle" role="menu" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    @{
+                        @*@ViewData["ID"]*@
+                        if (item.UserId == @ViewData["ID"])
+                        {
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="btn btn-default" data-toggle="modal" data-target="#ModalPost" asp-action="UpdatePost" asp-controller="HomePage" asp-route-id="@item.UserId" asp-route-IDD="@item.PostId">Edit</a><br />
+                                <a class="btn btn-default" asp-action="DeletePost" asp-controller="HomePage" asp-route-id="@item.UserId" asp-route-IDD="@item.PostId">Delete</a><br />
+
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card-body">
+
+            @item.Content
+            <button class="btn btn-default btns" onclick="seemore()" id="btn_more">Read more</button>
+
+        </div>
+        
+        <div class="card-footer">
+            <div class="row">
+                <div id="like">
+                    @Html.Partial("Getlike", item.Likes)
+                </div>
+                <div class="col-sm-6">
+                    <a data-toggle="collapse" asp-action="Getcomment" asp-controller="HomePage" asp-route-id="@item.PostId" class="as" role="button" aria-expanded="false" aria-controls="comments">Comments</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <form method="get" class="col-sm-6">
+                    <a></a>
+                    @*asp-route-id="@item.User.Id" asp-route-IDD="@item.PostId"*@
+                    @{
+                        var isli = item.Likes.Where(l => l.UserId == "a" && l.PostId == item.PostId).ToList();
+                        if (isli.Count == 0)
+                        {
+
+                            <button type="submit" class="btn btn-default btns" asp-action="CreateLike" asp-controller="HomePage" asp-route-id="@item.User.Id" asp-route-IDD="@item.PostId" style="background-color:saddlebrown" id="li" onclick="like()">Like</button>
+                        }
+                        else
+                        {
+                            if (isli[0].IsLiked)
+                            {
+                                <button type="submit" class="btn btn-default btns" asp-action="CreateLike" asp-controller="HomePage" style="background-color:yellow" id="li" onclick="unlike()">Like</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-default btns" asp-action="CreateLike" asp-controller="User" style="background-color:saddlebrown" id="li" onclick="like()">Like</button>
+
+                            }
+                        }
+                    }
+                    <input type="text" hidden name="PostId" value="@item.PostId" />
+                    <input type="text" hidden name="UserId" value="@item.UserId" />
+                </form>
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-default btns" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments" asp-action="Getcomment" asp-controller="HomePage" asp-route-id="@item.PostId" onclick="showcomment(@item.PostId)">Comment</button>
+                </div>
+            </div>
+            <br />
+            <div class="collapse" id="comments">
+                <form asp-action="CreateComment" asp-controller="HomePage" method="post" >
+                    <div class="input-group" id="mycomment">
+                        <textarea type="text" class="form-control" placeholder="Comment" aria-label="Search" aria-describedby="basic-addon2" name="Content"></textarea>
+                        <input type="text" hidden name="PostId" value="@item.PostId" />
+                        <input type="text" hidden name="UserId" value="@item.UserId" />
+                        <div class="input-group-append">
+                            @*asp-route-IDD="@item.PostId"     asp-route-id="@item.UserId" *@ 
+                            <button class="btn btn-outline-default btns" type="submit" id="btn_comment" >Go</button>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <br />
+
+                <div id="getcom">
+                    @Html.Partial("Getcomment", item.Comments)
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="ModalPost">
+        <div class="card-header">
+            <h5>Create Post</h5>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <textarea class="form-control" type="text" placeholder="What's on your mind?"></textarea>
+                    </div>
+                </div>
+                <img />
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-4">
+                        
+                    </div>
+                    
+                    
+                    <div class="col-sm-2">
+                        @*asp-route-id=@ViewData["ID"]*@
+                        <button type="submit" class="btn btn-default btns" id="btn_post" asp-action="createpost" asp-controller="HomePage" asp-route-id="@item.UserId" asp-route-id=@ViewData["ID"]>Post</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        function like()
+        {
+            document.getElementById("li").style.backgroundColor = "yellow";
+        }
+        function unlike()
+        {
+            document.getElementById("li").style.backgroundColor = "saddlebrown";
+        }
+    </script>
+    
+}
