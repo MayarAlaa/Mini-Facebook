@@ -43,7 +43,7 @@
                               <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Settings">Setting</a>
                           </li>
                           <li class="nav-item">
-                              <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">Logout</a>
+                              <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
                           </li>
                       </ul>
                    </div>
