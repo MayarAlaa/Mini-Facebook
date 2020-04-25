@@ -20,5 +20,13 @@ namespace Facebook.Models
         {
 
         }
+
+        public MyRole(string roleName, string description)
+        {
+            Name = roleName;
+            Description = description;
+            IsDeleted = false;
+            
+        }
     }
 }

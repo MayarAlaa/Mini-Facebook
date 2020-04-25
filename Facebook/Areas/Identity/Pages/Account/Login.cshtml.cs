@@ -89,6 +89,8 @@ namespace Facebook.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+
                     if (user.IsBlocked == true)
                         return RedirectToPage("./Lockout");
 

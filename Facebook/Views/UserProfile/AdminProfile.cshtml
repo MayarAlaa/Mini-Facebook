@@ -1,0 +1,101 @@
+﻿@model MyUser
+
+@{
+    ViewData["Title"] = "AdminProfile";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            @* User Infooo here *@
+            <partial name="UserInfoPartialProfile" />
+
+            <button class="btn btn-default btns" data-toggle="modal" data-target="#ModalupdateInfo">Update Info</button>
+
+            <br /><br />
+            @*FrrrriendRequests*@
+            <h5>Friend Requests</h5>
+            <ul>
+                @foreach (var FR in ViewBag.MyFriendRequests)
+                {
+                    <li>
+                        <section>
+                            @{
+                                var base64 = Convert.ToBase64String(FR.Image);
+                                var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                            }
+                            <img src=@imgSrc class="img-thumbnail" width="50" height="50" />      
+                            <a asp-controller="UserProfile" asp-action="GoToPendingUserProfile" asp-route-Id="@FR.Id" asp-route-myId="@Model.Id" class="as">@FR.FName  @FR.LName</a>
+                            <br />
+                            <a class="btn btn-outline-default btns" asp-controller="UserProfile" asp-action="AcceptFriend" asp-route-id="@FR.Id" asp-route-myId="@Model.Id">Accept</a><br />
+
+                            <a class="btn btn-outline-default btns" asp-controller="UserProfile" asp-action="CancelRecivedFriend" asp-route-id="@FR.Id" asp-route-myId="@Model.Id">Cancel</a><br />
+                        </section>
+                        <hr />
+                    </li>
+                }
+            </ul>
+            @*Frrrriendssssss*@
+            <h5>Friends</h5>
+            <ul>
+                @foreach (var us in ViewBag.MyFriends)
+                {
+                    <li>
+                        <section>
+                            @{
+                                if (us.Image != null)
+                                {
+                                    var base64 = Convert.ToBase64String(us.Image);
+                                    var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                                    <img src=@imgSrc class="img-thumbnail" width="50" height="50" /> 
+                                    }
+                                }
+                                    <a class="as" asp-action="GoToFriendProfile" asp-controller="UserProfile" asp-route-myId="@Model.Id" asp-route-Id="@us.Id">@us.FName  @us.LName</a>
+
+                                
+                            
+                            <br />
+                            <a class="btn btn-outline-default btns" asp-controller="UserProfile" asp-action="RemoveFriend" asp-route-id="@us.Id" asp-route-IDD="@Model.Id">Remove</a><br />
+
+                        </section>
+                        <hr />
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <partial name="CreatePost" />
+            <br /><br />
+            @*TeeeeeeeeeeeeatPPPPPPPPost*@
+            <partial name="Post" />
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalupdateInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*Heerrrrrre UpdateInfo*@
+                <partial name="UpdateInfoPartialProfile" />
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+    

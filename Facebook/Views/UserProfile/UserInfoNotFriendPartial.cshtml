@@ -1,0 +1,31 @@
+﻿@model MyUser
+
+    <section id="profimd">
+        @{
+            var base64 = Convert.ToBase64String(@Model.Image);
+            var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+        }
+        <img src=@imgSrc class="img-thumbnail" width="200" height="200" />
+
+    </section>
+
+
+<section id="info">
+    <h4>@Model.FName @Model.LName </h4>
+    <br />
+    <label id="G"></label>
+    <br />
+    <label>BirthDate : @Model.BDay/@Model.BMonth/@Model.BYear</label>
+    <br />
+    <p>Bio :  @Model.Bio</p>
+</section>
+<script>
+    var gend = '@Model.Gender';
+
+
+    if(gend=='f' || gend =='F')
+        document.getElementById('G').innerHTML = "Gender : Female";
+    else if (gend=='m' || gend == 'M')
+       document.getElementById('G').innerHTML = "Gender : Male";
+
+</script>

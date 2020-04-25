@@ -1,0 +1,52 @@
+﻿@model MyUser
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Facebook_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            @* User Infooo here *@
+            <partial name="UserInfoNotFriendPartial" />
+
+
+            <br /><br />
+
+
+            @*Frrrriendssssss*@
+
+            <h5>Friends</h5>
+
+            <ul>
+                @foreach (var us in ViewBag.MyPendingFriends)
+                {
+                    <li>
+                        <section>
+                            @{
+                                var base64 = Convert.ToBase64String(us.Image);
+                                var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                            }
+                            <img src=@imgSrc class="img-thumbnail" width="50" height="50" />                            <a class="as" asp-controller="UserProfile" asp-action="AnonFriendORNot" asp-route-Id=@ViewData["MyID"] asp-route-IDD="@us.Id">@us.FName  @us.LName</a>
+
+
+                        </section>
+                        <hr />
+                    </li>
+                }
+            </ul>
+
+        </div>
+
+        <div class="col-sm-9">
+            <a class="btn btn-success" asp-controller="UserProfile" asp-action="AddFriend" asp-route-Id="@Model.Id" asp-route-myId=@ViewData["MyID"]>Add Friend</a>
+
+            <br /><br />
+            @*TeeeeeeeeeeeeatPPPPPPPPost*@
+            <partial name="PostsNotFriends" />
+        </div>
+    </div>
+</div>
+
+
+
