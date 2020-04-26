@@ -1,16 +1,20 @@
-﻿@model IEnumerable<Posts> 
+﻿@*@model IEnumerable<Posts>*@ 
 
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-@foreach (var item in Model)
+    @*For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860*@
+@foreach (var item in (List<Posts>)ViewBag.Posts)
 {
     <div class="card">
         <div class="row" id="postuser">
             <div class="col-sm-11">
-                @{
-            var base64 = Convert.ToBase64String(item.User.Image);
-            var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
-        }
-        <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+                @if (item.User.Image != null)
+                {
+
+                    var base64 = Convert.ToBase64String(item.User.Image);
+                    var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+
+                    <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+                }
+
                 @*<img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />*@
                 @*asp-route-id=@ViewData["ID"] asp-route-idd=@item.User.Id*@
                 @*asp-action="AnonFriendORNot" asp-controller="UserProfile"*@
@@ -47,7 +51,12 @@
         <div class="card-footer">
             <div class="row">
                 <div id="like">
-                    @Html.Partial("Getlike", item.Likes)
+                    @*@Html.Partial("Getlike", item.Likes)*@
+                    @if (item.Likes?.Count > 0)
+                    {
+                        @Html.Partial("Getlike", item.Likes)
+                    }
+
                 </div>
                 <div class="col-sm-6">
                     <a data-toggle="collapse" asp-action="Getcomment" asp-controller="HomePage" asp-route-id="@item.PostId" class="as" role="button" aria-expanded="false" aria-controls="comments">Comments</a>
@@ -59,8 +68,12 @@
                     <a></a>
                     @*asp-route-id="@item.User.Id" asp-route-IDD="@item.PostId"*@
                     @{
-                        var isli = item.Likes.Where(l => l.UserId == "a" && l.PostId == item.PostId).ToList();
-                        if (isli.Count == 0)
+                        var id = ViewData["ID"];
+                        var isli = item.Likes.Where(l => l.UserId == ViewData["ID"]&&l.PostId == item.PostId).ToList();
+                        
+
+
+                if (isli.Count == 0)
                         {
 
                             <button type="submit" class="btn btn-default btns" asp-action="CreateLike" asp-controller="HomePage" asp-route-id="@item.User.Id" asp-route-IDD="@item.PostId" style="background-color:saddlebrown" id="li" onclick="like()">Like</button>
@@ -102,8 +115,11 @@
                 <br />
 
                 <div id="getcom">
-                    @Html.Partial("Getcomment", item.Comments)
-                </div>
+                    @if (item.Comments?.Count > 0)
+                    {
+                        @Html.Partial("Getcomment", item.Comments)
+                    }
+                    </div>
                 
 
             </div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Posts> 
+﻿@model MyUser
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Facebook_Layout.cshtml";
@@ -8,7 +8,7 @@
     @{Html.RenderPartial("CreatePost");}
 
     <br /><br />
-    @{Html.RenderPartial("Post", Model);}
+    @{Html.RenderPartial("Post");}
 </div>
 
 

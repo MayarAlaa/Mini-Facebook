@@ -1,25 +1,29 @@
-﻿@model IEnumerable<MyUser>
+﻿@*@model IEnumerable<MyUser>*@
+@model MyUser
 @{
     ViewData["Title"] = "Search";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
     <div class="container">
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.Users)
         {
 
 
         <div class="row">
             <div class="col-sm-8">
-               
+
                 <!--Radwa-->
                 <!-- <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />-->
-                @{
+                @if (item.Image != null)
+                {
                     var base64 = Convert.ToBase64String(item.Image);
                     var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
                 }
-                <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
-                <a href="#" class="as">@item.FName</a>
+
+                <a class="as" Asp-Controller="UserProfile" Asp-action="AnonFriendORNot" Asp-route-IDD=@item.Id asp-route-id=@ViewData["userID"]>@item.FName</a>
+
             </div>
        
         </div>

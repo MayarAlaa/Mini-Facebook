@@ -7,7 +7,6 @@ using Facebook.Models;
 using Facebook.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Facebook.Models;
 using Facebook.Data;
 namespace Pages.Controllers
 {
@@ -49,6 +48,7 @@ namespace Pages.Controllers
                 return RedirectToAction("Profile", "UserProfile", new { Id = userID });
             }
 
+            //  return View(user);
             return View();
 
 
@@ -68,7 +68,7 @@ namespace Pages.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                return View();
+                return View(user);
             }
 
             //return RedirectToAction("index"); //add user id

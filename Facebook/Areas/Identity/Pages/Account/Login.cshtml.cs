@@ -89,15 +89,20 @@ namespace Facebook.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    ViewData["ID"] = user.Id;
+
+
 
 
                     if (user.IsBlocked == true)
                         return RedirectToPage("./Lockout");
 
                     if (roles.Contains("Admin"))
-                    return RedirectToAction("Index", "Admin", user.Id,user.FName);
+                    return RedirectToAction("Index", "HomePage", new { id = user.Id }/*,user.FName*/);
 
-                    return RedirectToAction("Index","User",user.Id,user.FName);
+
+                    return RedirectToAction("Index","HomePage", new { id = user.Id }/*,user.FName*/);
+
                 }
                 if (result.RequiresTwoFactor)
                 {

@@ -2,10 +2,10 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<div class="col-sm-6">
-    @*asp-route-id="@Model.ToList()[0].PostId"       onclick="showlike(@Model.ToList()[0].PostId)"    @Model.ToList().Count(p => p.IsLiked == true)*@
-    <a asp-action="Getlike" asp-controller="HomePage" asp-route-id="@Model.ToList()[0].PostId" onclick="showlike(@Model.ToList()[0].PostId)" class="as" data-toggle="modal" data-target="#ModalLikes">@Model.ToList().Count(p => p.IsLiked == true)</a>
-</div>
+    <div class="col-sm-6">
+        @*asp-route-id="@Model.ToList()[0].PostId"       onclick="showlike(@Model.ToList()[0].PostId)"    @Model.ToList().Count(p => p.IsLiked == true)*@
+        <a asp-action="Getlike" asp-controller="HomePage" asp-route-id="@Model.ToList()[0].PostId" class="as" data-toggle="modal" data-target="#ModalLikes">@Model.ToList().Count(p => p.IsLiked == true)</a>
+    </div>
 <div class="modal fade" id="ModalLikes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
