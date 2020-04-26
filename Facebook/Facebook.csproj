@@ -6,8 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200413180055_OneMany.cs" />
+    <Compile Remove="Data\Migrations\20200413180055_OneMany.Designer.cs" />
     <Compile Remove="Data\Migrations\20200417172205_migPhoto.cs" />
     <Compile Remove="Data\Migrations\20200417172205_migPhoto.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200425122458_photoMigration.cs" />
+    <Compile Remove="Data\Migrations\20200425122458_photoMigration.Designer.cs" />
   </ItemGroup>
 
 

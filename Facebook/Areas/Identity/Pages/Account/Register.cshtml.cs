@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using System.IO.Pipelines;
+//using System.IO.Pipelines;
 
 namespace Facebook.Areas.Identity.Pages.Account
 {
@@ -118,7 +118,7 @@ namespace Facebook.Areas.Identity.Pages.Account
 
                 if(user.Gender=='M')
                 {
-                    FileStream pic = new FileStream("D:/ITI/MVC/MVC_Project/Project/Facebook/Images/m.jpeg",FileMode.Open);
+                    FileStream pic = new FileStream("Images/m.jpeg",FileMode.Open);
                     using (MemoryStream ms = new MemoryStream())
                     {
                         await pic.CopyToAsync(ms);
@@ -128,7 +128,7 @@ namespace Facebook.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    FileStream pic = new FileStream("D:/ITI/MVC/MVC_Project/Project/Facebook/Images/f.jpeg", FileMode.Open);
+                    FileStream pic = new FileStream("Images/f.jpeg", FileMode.Open);
                     using (MemoryStream ms = new MemoryStream())
                     {
                         await pic.CopyToAsync(ms);
@@ -162,7 +162,9 @@ namespace Facebook.Areas.Identity.Pages.Account
                     //{ 
                     #endregion
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "User",user,user.FName);
+                    // return RedirectToAction("Index", "User",user,user.FName);
+                    RedirectToAction("Index", "HomePage", new { id = user.Id }/*/*,user.FName*/);
+
                 }
                 foreach (var error in result.Errors)
                 {

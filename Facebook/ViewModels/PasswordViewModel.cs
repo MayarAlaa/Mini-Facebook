@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Facebook.Models;
 
 namespace Facebook.ViewModels
 {
@@ -20,6 +21,8 @@ namespace Facebook.ViewModels
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
+
+  //      public MyUser myUser { get; set; }
     }
 
     

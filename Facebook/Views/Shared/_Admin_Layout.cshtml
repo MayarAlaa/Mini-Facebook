@@ -1,4 +1,5 @@
 ﻿@model Facebook.Models.MyUser
+@*@model IEnumerable<Posts>;*@
 @{
     Layout = null;
 }
@@ -51,19 +52,19 @@
                 <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse" id="navitems">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Profile">Profile</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="UserProfile" asp-action="Profile" asp-route-id=@Model.Id>Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="HomePage" asp-action="Index" asp-route-id=@Model.Id>Home</a>  
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Users" asp-route-id="@Model.Id">Users</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Users" asp-route-id=@Model.Id>Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Roles">Roles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ChangePassword">Settings</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="ChangePassword">Settings</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
@@ -85,7 +86,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/js/post.js"></script>
     @RenderSection("Scripts", required: false)
-    <script>
+<script>
 
         $(document).ready(function () {
 
@@ -94,9 +95,10 @@
                 console.log("here");
 
 
-                var id = @Model.Id;
+                @*var id = @Model.Id;*@
                 var cust =  $('#userName').val()
-                var url = '@Html.Raw(Url.Action("Search", "Admin", new {id=Model.Id, searchname = "cust" }))'
+                @*var url = '@Html.Raw(Url.Action("Search", "Admin", new {id= ViewData["ID"], searchname = "cust" }))'*@
+                var url = '@Html.Raw(Url.Action("Search", "Admin", new {id= Model.Id, searchname = "cust" }))'
                 window.location = url.replace("cust", cust);
 
 
@@ -105,6 +107,6 @@
 
         });
 
-    </script>
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyUser>
+﻿@model MyUser
 @{
     ViewData["Title"] = "Users";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
@@ -25,22 +25,24 @@
             <br /><br />
            
                   <table>
-                      @foreach (var item in Model)
+                      @foreach (var item in ViewBag.Users)
                       {
 
                       <tr class="row parent ">
                           <td class=".id" hidden>@item.Id</td>
 
                           <td class="col-sm-6">
-                             <!-- <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />-->
-                              <a href="#" class="as searchh " @*Asp-Controller="Userprofile"Asp-action="AnonFriendORNot" Asp-route-IDD=@item.Id asp-route-id=""*@>@item.FName</a>
-                           
+                              <!-- <img class="img-thumbnail" src="~/images/fBE7wrcL_400x400.jpg" width="50" height="50" />-->
+                              <a class="as searchh " Asp-Controller="UserProfile" Asp-action="AnonFriendORNot" Asp-route-IDD=@item.Id asp-route-id=@ViewData["userID"]>@item.FName</a>
 
-                              @{
+
+                              @if (item.Image != null)
+                              {
                                   var base64 = Convert.ToBase64String(item.Image);
                                   var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+                                  <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
                               }
-                              <img src=@imgSrc class="img-thumbnail" width="50" height="50" />
+
 
 
 

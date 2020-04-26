@@ -20,11 +20,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
+using System.IO;
 
 namespace Facebook.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<MyUser> _userManager;
@@ -52,12 +52,16 @@ namespace Facebook.Controllers
 
             List<MyUser> users = _userManager.Users.ToList();
             List<MyRole> roles = _roleManager.Roles.ToList();
-     
 
-            
-            ViewData["Id"] = new SelectList(_roleManager.Roles, "Id", "Name");
+            ViewData["userID"] = id;
 
-            return View(users);
+
+            ViewData["Id"] = new SelectList(_roleManager.Roles.Where(r => r.IsDeleted == false), "Id", "Name");
+            ViewBag.Users = users;
+
+            var user = users.Find(u => u.Id == id);
+
+            return View(user);
         }
 
 
@@ -65,7 +69,16 @@ namespace Facebook.Controllers
         {
             List<MyRole> roles = _roleManager.Roles.Where(r => r.IsDeleted == false).ToList();
 
-            return View(roles);
+            //return View(roles);
+
+            ViewBag.Roles = roles;
+            var adminID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var admin = _userManager.Users.FirstOrDefault(u => u.Id == adminID && u.IsDeleted == false && u.IsBlocked == false);
+            
+
+            return View(admin);
+
+
         }
 
 
@@ -192,7 +205,7 @@ namespace Facebook.Controllers
         [HttpGet]
         public IActionResult CreateUser ()
         {
-            ViewData["Id"] = new SelectList(_roleManager.Roles,"Name");
+            ViewData["Id"] = new SelectList(_roleManager.Roles.Where(r => r.IsDeleted == false),"Name");
 
             return View();
         }
@@ -203,9 +216,28 @@ namespace Facebook.Controllers
 
             if (ModelState.IsValid)
             {
+                if (user.Gender == 'M')
+                {
+                    FileStream pic = new FileStream("Images/m.jpeg", FileMode.Open);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        await pic.CopyToAsync(ms);
+                        user.Image = ms.ToArray();
+                        pic.Close();
+                    }
+                }
+                else
+                {
+                    FileStream pic = new FileStream("Images/f.jpeg", FileMode.Open);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        await pic.CopyToAsync(ms);
+                        user.Image = ms.ToArray();
+                        pic.Close();
+                    }
+                }
 
-                
-               
+
                 MyUser Newuser = new MyUser()
                 {
                   
@@ -228,12 +260,7 @@ namespace Facebook.Controllers
                     UserName = user.FName,
                     NormalizedUserName = user.FName.ToUpper(),
                     NormalizedEmail = user.Email.ToUpper(),
-                    // PasswordHash = user.PasswordHash
-
-
-
-
-
+                    Image = user.Image
 
                 };
                 var r = await _userManager.CreateAsync(Newuser, user.PasswordHash);
@@ -270,67 +297,74 @@ namespace Facebook.Controllers
 
 
 
-        [HttpGet]
-        public IActionResult ChangePassword()
+        //[HttpGet]
+        //public IActionResult ChangePassword()
 
-        {
-            var adminID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var admin = _userManager.Users.FirstOrDefault(u => u.Id == adminID && u.IsDeleted == false && u.IsBlocked == false);
-
-
-            if (admin == null)
-            {
-                //return RedirectToAction("index"); //add user id
-                return RedirectToAction("Profile", "UserProfile", new { Id = adminID });
-            }
-
-            return View();
+        //{
+        //    var adminID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var admin = _userManager.Users.FirstOrDefault(u => u.Id == adminID && u.IsDeleted == false && u.IsBlocked == false);
 
 
-        }
+        //    if (admin == null)
+        //    {
+        //        //return RedirectToAction("index"); //add user id
+        //        return RedirectToAction("Profile", "UserProfile", new { Id = adminID });
+        //    }
+
+        //    return View();
 
 
-        [HttpPost]
-        public async Task<IActionResult> ChangePassword(PasswordViewModel passView)
-        {
-            var adminID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var admin = await _userManager.FindByIdAsync(adminID);
-            var token = await _userManager.GeneratePasswordResetTokenAsync(admin);
-            var result = await _userManager.ResetPasswordAsync(admin, token, passView.NewPassword);
+        //}
 
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-                return View();
-            }
 
-           // return RedirectToAction("index"); //add user id
-            return RedirectToAction("Profile", "UserProfile", new { Id = adminID });
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> ChangePassword(PasswordViewModel passView)
+        //{
+        //    var adminID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var admin = await _userManager.FindByIdAsync(adminID);
+        //    var token = await _userManager.GeneratePasswordResetTokenAsync(admin);
+        //    var result = await _userManager.ResetPasswordAsync(admin, token, passView.NewPassword);
+
+        //    if (!result.Succeeded)
+        //    {
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //        return View();
+        //    }
+
+        //   // return RedirectToAction("index"); //add user id
+        //    return RedirectToAction("Profile", "UserProfile", new { Id = adminID });
+        //}
         public IActionResult Search( string id ,string searchname)
         {
+            ViewData["userID"] = id;
             List<MyUser> users = _userManager.Users.Where(w=>w.FName.Contains(searchname)).ToList();
-            return View(users);
+
+            ViewBag.Users = users;
+
+            var user = users.Find(u => u.Id == id);
+
+            return View(user);
+            //return View(users);
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult Profile()
-        {
-            return View();
-        }
-        public IActionResult CreatePost()
-        {
-            return PartialView("CreatePost");
-        }
-        public IActionResult Post()
-        {
-            return PartialView("Post");
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+        //public IActionResult Profile()
+        //{
+        //    return View();
+        //}
+        //public IActionResult CreatePost()
+        //{
+        //    return PartialView("CreatePost");
+        //}
+        //public IActionResult Post()
+        //{
+        //    return PartialView("Post");
+        //}
 
         public async Task<IActionResult> blockAsync(string id) 
         {
